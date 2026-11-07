@@ -1,0 +1,77 @@
+{% extends "base.html" %}{% block content %}
+<section class="section wrap">
+    <div class="breadcrumbs"><a href="/">Home</a> / <a href="/shop">Shop</a> / {{ product.name }}</div>
+    <div class="product-detail">
+        <div class="detail-visual"><img src="{{ product.image_url or url_for('static',path='images/fish-pickle.svg') }}"
+                                        alt="{{ product.name }} — illustrative reference image"
+                                        onerror="this.onerror=null;this.src='{{ url_for('static',path='images/fish-pickle.svg') }}'"><span>Reference image · Demo listing</span>
+        </div>
+        <div class="detail-copy">
+            <div class="eyebrow">{{ category.name if category else 'COASTAL SPECIAL' }}</div>
+            <h1>{{ product.name }}</h1>
+            <div class="rating">★ {{ '%.1f'|format(product.rating) }} <small>({{ product.review_count }} sample
+                ratings)</small></div>
+            <p>{{ product.description }}</p>
+            <div class="detail-price">{{ (product.discount_price if product.discount_price is not none else
+                product.price)|inr }} {% if product.discount_price is not none and product.discount_price
+                <product.price %}
+                <del>{{ product.price|inr }}</del>
+                {% endif %}
+            </div>
+            <div class="detail-facts"><span><small>WEIGHT</small><b>{{ product.weight }}</b></span><span><small>SPICE LEVEL</small><b>{{ product.spice_level }}</b></span><span><small>AVAILABILITY</small><b>{{ 'In stock' if product.stock_quantity>0 else 'Out of stock' }}</b></span>
+            </div>
+            <form action="/cart/add" method="post" class="detail-buy"><input type="hidden" name="product_id"
+                                                                             value="{{ product.id }}"><input
+                    type="hidden" name="next" value="/cart"><label>Qty <input type="number" name="quantity" value="1"
+                                                                              min="1"
+                                                                              max="{{ product.stock_quantity if product.stock_quantity>0 else 1 }}"></label>
+                <button class="button button-dark" type="submit" {% if product.stock_quantity
+                <1 %}disabled{% endif %}>Add to basket <span>→</span></button></form>
+            <form action="/wishlist/add" method="post"><input type="hidden" name="product_id"
+                                                              value="{{ product.id }}"><input type="hidden" name="next"
+                                                                                              value="/product/{{ product.id }}">
+                <button class="outline-button" type="submit">♡ Save to wishlist</button>
+            </form>
+            <div class="ingredients"><b>Ingredients (demo copy)</b>
+                <p>{{ product.ingredients or 'Please confirm final ingredients with the maker before sale.' }}</p>
+                <small>Replace this illustrative content with the verified recipe, allergens, storage instructions and
+                    food-label requirements before selling.</small></div>
+        </div>
+    </div>
+    <section class="reviews" id="reviews">
+        <div class="section-heading">
+            <div>
+                <div class="eyebrow">CUSTOMER NOTES</div>
+                <h2>Words from the table.</h2></div>
+        </div>
+        {% if reviews %}
+        <div class="review-grid">{% for review in reviews %}
+            <article class="review-card">
+                <div class="rating">{{ '★' * review.rating }}{{ '☆' * (5-review.rating) }}</div>
+                <p>{{ review.comment }}</p><small>{{ review.customer_name }} · {{ review.created_at.strftime('%d %b %Y')
+                }}</small></article>
+            {% endfor %}
+        </div>
+        {% else %}<p class="muted">No reviews yet. Signed-in customers can share the first review.</p>{% endif %}
+        <form action="/product/{{ product.id }}/review" method="post" class="review-form"><h3>Share your feedback</h3>{%
+            if user %}<label>Rating<select name="rating" required>
+                <option value="5">5 — Excellent</option>
+                <option value="4">4 — Very good</option>
+                <option value="3">3 — Good</option>
+                <option value="2">2 — Needs work</option>
+                <option value="1">1 — Poor</option>
+            </select></label><label>Your review<textarea name="comment" required maxlength="1500" rows="3"
+                                                         placeholder="Tell other shoppers what you think…"></textarea></label>
+            <button class="button button-dark" type="submit">Submit review</button>
+            {% else %}<p>Please <a href="/login?next=/product/{{ product.id }}">sign in</a> to leave a review.</p>{%
+            endif %}
+        </form>
+    </section>
+    {% if related_products %}
+    <section class="related"><h2>You may also like</h2>
+        <div class="product-grid">{% for product in related_products %}{% include 'partials/product_card.html' %}{%
+            endfor %}
+        </div>
+    </section>
+    {% endif %}
+</section>{% endblock %}

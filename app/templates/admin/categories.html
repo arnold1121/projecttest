@@ -1,0 +1,42 @@
+{% extends "admin/base_admin.html" %}{% set active='categories' %}{% block admin_content %}
+<section class="admin-card">
+    <div class="admin-card-head">
+        <div><h2>Create a category</h2>
+            <p>Keep shoppers’ browse paths clear.</p></div>
+    </div>
+    <form action="/admin/categories/create" method="post" class="inline-create"><label>Category name<input name="name"
+                                                                                                           required
+                                                                                                           maxlength="100"
+                                                                                                           placeholder="e.g. Coastal specials"></label><label>Description<input
+            name="description" maxlength="1000" placeholder="Short category description"></label><label>Image URL<input
+            name="image_url" type="url" maxlength="1200" placeholder="Optional reference image URL"></label>
+        <button class="admin-primary" type="submit">Create category</button>
+    </form>
+</section>
+<section class="admin-card">
+    <div class="admin-card-head">
+        <div><h2>Current categories</h2>
+            <p>Categories containing products are safely deactivated rather than deleted.</p></div>
+    </div>
+    <div class="category-admin-list">{% for category in categories %}
+        <form class="category-edit" action="/admin/categories/{{ category.id }}/edit" method="post">
+            <div><small>Slug: {{ category.slug }}</small><small>Created {{ category.created_at.strftime('%d %b %Y')
+                }}</small></div>
+            <label>Category name<input name="name" required value="{{ category.name }}" maxlength="100"></label><label>Description<input
+                name="description" value="{{ category.description }}" maxlength="1000"></label><label>Image URL<input
+                name="image_url" value="{{ category.image_url }}" maxlength="1200"></label><label
+                class="check-label"><input type="checkbox" name="is_active" {% if category.is_active %}checked{% endif
+                                           %}> Active</label>
+            <div class="category-row-actions">
+                <button class="table-action" type="submit">Save</button>
+                <button class="table-action danger" type="submit"
+                        formaction="/admin/categories/{{ category.id }}/delete" formnovalidate
+                        onclick="return confirm('Delete or deactivate this category?')">Delete / Deactivate
+                </button>
+            </div>
+        </form>
+        {% else %}
+        <div class="empty-admin">No categories yet.</div>
+        {% endfor %}
+    </div>
+</section>{% endblock %}

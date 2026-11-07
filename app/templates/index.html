@@ -1,0 +1,122 @@
+{% extends "base.html" %}{% block content %}
+<section class="hero"><img class="hero-photo"
+                           src="https://videocdn.pollo.ai/web-cdn/pollo/production/cmvhr6ypz03r2dqc0uu46v5hn/ori/cmvhrdkiv03sg8zdja3dyju1y-0-795fa9340587897e.png?width=1600"
+                           alt="Fishing boats along the Kanyakumari coast"
+                           onerror="this.onerror=null;this.src='{{ url_for('static',path='images/coastal-hero.svg') }}'">
+    <div class="hero-overlay"></div>
+    <div class="hero-inner">
+        <div class="hero-copy">
+            <div class="eyebrow light"><span>✳</span> FROM THE SOUTHERN SHORE</div>
+            <h1>Taste the Sea.<br><em>Preserve the</em><br>Tradition.</h1>
+            <p>Authentic coastal fish pickle inspired by the bold flavours and timeless food traditions of southern
+                Tamil Nadu.</p>
+            <div class="hero-buttons"><a class="button button-sand" href="/shop">Shop fish pickles <span>↗</span></a><a
+                    class="text-link light-link" href="#story">Discover our story <span>→</span></a></div>
+            <div class="hero-proof">
+                <div class="proof-icons"><span>✦</span><span>♧</span><span>≈</span></div>
+                <div><b>Rooted in coastal tradition</b><small>Made for meals worth gathering around</small></div>
+            </div>
+        </div>
+        <div class="hero-art">
+            <div class="hero-orbit"></div>
+            <img class="hero-jar" src="{{ url_for('static',path='images/fish-pickle.svg') }}"
+                 alt="Original vector illustration of a SeaFishPick pickle jar">
+            <div class="hero-seal"><span>✳</span><b>Southern<br>coast recipe</b><small>INSPIRATION</small></div>
+            <div class="hero-art-label">Illustrative artwork · Sample product</div>
+        </div>
+    </div>
+    <div class="hero-bottom"><span>COASTAL FLAVOUR, CRAFTED WITH CARE</span><span>08° 10′ N · SOUTHERN TAMIL NADU</span>
+    </div>
+</section>
+<section class="benefit-rail wrap">
+    <div class="benefit"><span>≈</span>
+        <div><b>Coastal inspiration</b><small>Southern Tamil Nadu roots</small></div>
+    </div>
+    <div class="benefit"><span>✳</span>
+        <div><b>Bold, layered spice</b><small>Inspired by classic flavours</small></div>
+    </div>
+    <div class="benefit"><span>♡</span>
+        <div><b>Made for sharing</b><small>Bring everyone to the table</small></div>
+    </div>
+    <div class="benefit"><span>⌁</span>
+        <div><b>Thoughtful packing</b><small>Designed for pantry shelves</small></div>
+    </div>
+</section>
+<section class="section wrap" id="shop">
+    <div class="section-heading">
+        <div>
+            <div class="eyebrow"><span class="eyebrow-rule"></span> THE SEA FAVOURITES</div>
+            <h2>Bring home a little<br><em>coastal magic.</em></h2>
+            <p>Find a flavour for your next comforting meal.</p></div>
+        <a class="text-link dark-link" href="/shop">View all products <span>→</span></a></div>
+    <div class="product-grid">{% for product in featured_products %}{% include 'partials/product_card.html' %}{% endfor
+        %}
+    </div>
+</section>
+<section class="story-band" id="story">
+    <div class="story-image"><img
+            src="https://commons.wikimedia.org/wiki/Special:FilePath/Jars_filled_with_homemade_Indian_pickles.jpg?width=1100"
+            alt="Homemade Indian pickles in glass jars"
+            onerror="this.onerror=null;this.src='{{ url_for('static',path='images/sunset.svg') }}'">
+        <div class="story-photo-note"><span>01 / THE PANTRY</span><b>Recipes that bring<br>people together.</b></div>
+    </div>
+    <div class="story-copy">
+        <div class="eyebrow light"><span class="eyebrow-rule"></span> A STORY FROM THE SHORE</div>
+        <h2>From the southern coast<br><em>to your table.</em></h2>
+        <p>SeaFishPick takes inspiration from the everyday magic of coastal kitchens — the catch of the day, the aroma
+            of spices blooming in oil, and recipes shared across generations.</p>
+        <p>Our brand story follows a simple thread: Kanyakumari’s coastline, fishing communities around Colachel, and
+            the familiar comfort of a well-loved pickle jar on the family table.</p><a
+            class="button button-outline-light" href="#coast">Explore our coastal roots <span>→</span></a><small
+            class="note">Brand story and demo product copy are illustrative, not historical claims or verified
+        testimonials.</small></div>
+</section>
+<section class="section wrap" id="coast">
+    <div class="section-heading">
+        <div>
+            <div class="eyebrow"><span class="eyebrow-rule"></span> ROOTED IN A PLACE</div>
+            <h2>Inspired by the<br><em>southern shoreline.</em></h2></div>
+        <p class="heading-side">Three coastal moods that inspire our look, our story and our love of food.</p></div>
+    <div class="coast-grid">
+        <article class="coast-card coast-kanyakumari"><img
+                src="https://commons.wikimedia.org/wiki/Special:FilePath/Kanyakumari_beach.jpg?width=900"
+                alt="Kanyakumari beach scenery"
+                onerror="this.onerror=null;this.src='{{ url_for('static',path='images/coastal-hero.svg') }}'">
+            <div class="coast-shade"></div>
+            <div class="coast-info"><small>01 · OPEN HORIZONS</small>
+                <h3>Kanyakumari</h3>
+                <p>Ocean air, open horizons and the edge of the land.</p><a href="#story">Discover inspiration ↗</a>
+            </div>
+        </article>
+        <article class="coast-card coast-colachel"><img
+                src="https://commons.wikimedia.org/wiki/Special:FilePath/01FishingBoats%26Kanyakumari.jpg?width=900"
+                alt="Fishing boats on the southern coast"
+                onerror="this.onerror=null;this.src='{{ url_for('static',path='images/coastal-hero.svg') }}'">
+            <div class="coast-shade"></div>
+            <div class="coast-info"><small>02 · LIFE BY THE WATER</small>
+                <h3>Colachel</h3>
+                <p>Fishing boats, livelihoods and flavours inspired by life beside the sea.</p><a href="#story">Discover
+                    inspiration ↗</a></div>
+        </article>
+        <article class="coast-card coast-muttom"><img src="{{ url_for('static',path='images/sunset.svg') }}"
+                                                      alt="Illustrated Muttom-style rocks and waves">
+            <div class="coast-shade"></div>
+            <div class="coast-info"><small>03 · SEA SPRAY & STONE</small>
+                <h3>Muttom</h3>
+                <p>Weathered rocks and rolling waves in a dramatic coastal palette.</p><a href="#story">Discover
+                    inspiration ↗</a></div>
+        </article>
+    </div>
+</section>
+<section class="newsletter">
+    <div class="wave-symbol">≈</div>
+    <div>
+        <div class="eyebrow light">NOTES FROM THE COAST</div>
+        <h2>A little spice for your inbox.</h2>
+        <p>Get new-flavour updates and serving inspiration from SeaFishPick.</p></div>
+    <form id="newsletterForm" class="newsletter-form"><label class="sr-only" for="newsletterEmail">Email address</label><input
+            id="newsletterEmail" type="email" placeholder="Your email address" required>
+        <button type="submit">Join the list →</button>
+        <small id="newsletterFeedback">Demo only — no email will be sent.</small></form>
+</section>
+{% endblock %}

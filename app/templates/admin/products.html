@@ -1,0 +1,46 @@
+{% extends "admin/base_admin.html" %}{% set active='products' %}{% block page_action %}<a class="admin-primary"
+                                                                                          href="/admin/products/create">＋
+    Add product</a>{% endblock %}{% block admin_content %}
+<section class="admin-card">
+    <div class="admin-card-head">
+        <div><h2>Product catalogue</h2>
+            <p>Editing inventory here updates the storefront immediately.</p></div>
+    </div>
+    <div class="table-wrap">
+        <table class="admin-table">
+            <thead>
+            <tr>
+                <th>Product</th>
+                <th>Price</th>
+                <th>Stock</th>
+                <th>State</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody>{% for product in products %}
+            <tr>
+                <td><b>{{ product.name }}</b><small>{{ product.weight }}</small></td>
+                <td><b>{{ (product.discount_price if product.discount_price is not none else product.price)|inr }}</b>
+                </td>
+                <td>{{ product.stock_quantity }}</td>
+                <td><span
+                        class="status-pill {% if not product.is_active %}inactive{% elif product.stock_quantity==0 %}cancelled{% endif %}">{{ 'Active' if product.is_active else 'Inactive' }}</span>
+                </td>
+                <td>
+                    <div class="table-actions"><a href="/admin/products/{{ product.id }}/edit">Edit</a>
+                        <form action="/admin/products/{{ product.id }}/delete" method="post"
+                              onsubmit="return confirm('Deactivate this product?')">
+                            <button type="submit">Deactivate</button>
+                        </form>
+                    </div>
+                </td>
+            </tr>
+            {% else %}
+            <tr>
+                <td colspan="5">No products yet.</td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</section>{% endblock %}

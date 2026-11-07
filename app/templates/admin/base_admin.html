@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{{ page_title }} · SeaFishPick Admin</title>
+    <link rel="stylesheet" href="{{ url_for('static',path='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static',path='css/admin.css') }}">
+    <script src="{{ url_for('static',path='js/admin.js') }}" defer></script>
+</head>
+<body class="admin-body">
+<header class="admin-topbar"><a class="brand" href="/"><span class="brand-mark"><img
+        src="{{ url_for('static',path='images/fish-mark.svg') }}" width="30"
+        alt=""></span><span><strong>SeaFishPick</strong><small>STORE MANAGEMENT</small></span></a>
+    <div><span class="admin-owner">Owner area</span> <a href="/">← Storefront</a></div>
+</header>
+<div class="admin-layout">
+    <aside class="admin-sidebar">
+        <div class="admin-user"><span>SF</span>
+            <div><b>{{ user.name }}</b><small>Store administrator</small></div>
+        </div>
+        <small class="sidebar-label">WORKSPACE</small>
+        <nav>{% for key,label in
+            [('dashboard','Dashboard'),('products','Products'),('categories','Categories'),('orders','Orders'),('customers','Customers'),('inventory','Inventory'),('reviews','Reviews')]
+            %}<a class="{% if active==key %}active{% endif %}"
+                 href="/admin{% if key!='dashboard' %}/{{ key }}{% endif %}">{{ label }}</a>{% endfor %}
+        </nav>
+        <div class="sidebar-note"><strong>Stay close to the coast.</strong><small>Your shop, one step at a time.</small>
+        </div>
+        <form action="/logout" method="post">
+            <button type="submit" class="sidebar-logout">Sign out</button>
+        </form>
+    </aside>
+    <main class="admin-main">{% if flash %}
+        <div class="flash flash-{{ flash.kind }}">{{ flash.message }}</div>
+        {% endif %}
+        <div class="admin-page-head">
+            <div>
+                <div class="eyebrow">SEAFISHPICK · OWNER WORKSPACE</div>
+                <h1>{{ page_title }}</h1>
+                <p>Manage the sample catalogue and demo orders.</p></div>
+            {% block page_action %}{% endblock %}
+        </div>
+        {% block admin_content %}{% endblock %}
+        <footer class="admin-footer"><span>SeaFishPick · Owner workspace</span><span>Sample data · No real payment processing</span>
+        </footer>
+    </main>
+</div>
+</body>
+</html>

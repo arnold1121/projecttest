@@ -1,0 +1,34 @@
+{% extends "admin/base_admin.html" %}{% set active='reviews' %}{% block admin_content %}
+<section class="admin-card">
+    <div class="admin-card-head">
+        <div><h2>Customer reviews</h2>
+            <p>Sample seed reviews are labelled on the product page.</p></div>
+    </div>
+    <div class="table-wrap">
+        <table class="admin-table">
+            <thead>
+            <tr>
+                <th>Product ID</th>
+                <th>Customer</th>
+                <th>Rating</th>
+                <th>Comment</th>
+                <th>Date</th>
+            </tr>
+            </thead>
+            <tbody>{% for review in reviews %}
+            <tr>
+                <td>{{ review.product_id }}</td>
+                <td>{{ review.customer_name }}</td>
+                <td class="rating">{{ '★' * review.rating }}{{ '☆' * (5-review.rating) }}</td>
+                <td class="review-comment">{{ review.comment }}</td>
+                <td>{{ review.created_at.strftime('%d %b %Y') }}</td>
+            </tr>
+            {% else %}
+            <tr>
+                <td colspan="5">No reviews yet.</td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</section>{% endblock %}

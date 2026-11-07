@@ -1,0 +1,41 @@
+{% extends "base.html" %}{% block content %}
+<section class="section wrap">
+    <div class="eyebrow">ONE LAST STEP</div>
+    <h1 class="page-title">Make it a good meal.</h1>
+    <p class="page-subtitle">Enter demo details for this local prototype. No money is collected.</p>
+    <form method="post" action="/checkout" class="checkout-layout">
+        <div class="checkout-form card-panel"><h2>Delivery details</h2>
+            <div class="form-grid"><label>Full name<input name="customer_name" required maxlength="120"
+                                                          value="{{ user.name if user else '' }}"
+                                                          autocomplete="name"></label><label>Email<input
+                    name="customer_email" type="email" required maxlength="180" value="{{ user.email if user else '' }}"
+                    autocomplete="email"></label><label>Phone<input name="phone" required maxlength="40"
+                                                                    value="{{ user.phone if user else '' }}"
+                                                                    autocomplete="tel"></label><label>Pincode<input
+                    name="pincode" required maxlength="12" inputmode="numeric" autocomplete="postal-code"></label><label
+                    class="full-field">Delivery address<textarea name="address" required maxlength="500" rows="3"
+                                                                 autocomplete="street-address"></textarea></label><label>City<input
+                    name="city" required maxlength="100" autocomplete="address-level2"></label><label>State<input
+                    name="state" required maxlength="100" value="Tamil Nadu" autocomplete="address-level1"></label>
+            </div>
+            <h2 class="payment-title">Demo payment method</h2><label class="payment-option"><input type="radio"
+                                                                                                   name="payment_method"
+                                                                                                   value="Cash on Delivery"
+                                                                                                   checked> Cash on
+                Delivery</label><label class="payment-option"><input type="radio" name="payment_method"
+                                                                     value="Demo Online Payment"> Demo online payment
+                (no charge)</label>
+            <p class="muted">Online payment is a non-transactional demo. No payment details are collected.</p></div>
+        <aside class="summary-card"><h2>Your order</h2>{% for line in cart_lines %}
+            <div class="summary-row"><span>{{ line.product.name }} × {{ line.quantity }}</span><b>{{ line.line_total|inr
+                }}</b></div>
+            {% endfor %}
+            <div class="summary-row"><span>Subtotal</span><b>{{ totals.subtotal|inr }}</b></div>
+            <div class="summary-row"><span>Shipping</span><b>{{ totals.shipping|inr if totals.shipping else 'Free'
+                }}</b></div>
+            <div class="summary-row grand"><span>Total</span><b>{{ totals.grand_total|inr }}</b></div>
+            <button class="button button-dark button-wide" type="submit">Place demo order <span>→</span></button>
+            <small class="secure-note">Use test details only. Product labels and ingredients must be verified before
+                real sales.</small></aside>
+    </form>
+</section>{% endblock %}

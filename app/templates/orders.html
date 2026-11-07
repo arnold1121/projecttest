@@ -1,0 +1,35 @@
+{% extends "base.html" %}{% block content %}
+<section class="section wrap">
+    <div class="eyebrow">MY ORDERS</div>
+    <h1 class="page-title">Your orders.</h1>
+    <p class="page-subtitle">Track the demo orders associated with your account.</p>{% if orders %}
+    <div class="table-wrap">
+        <table class="data-table">
+            <thead>
+            <tr>
+                <th>Order</th>
+                <th>Placed</th>
+                <th>Status</th>
+                <th>Total</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>{% for order in orders %}
+            <tr>
+                <td><b>{{ order.order_number }}</b><small>{{ order.payment_method }}</small></td>
+                <td>{{ order.created_at.strftime('%d %b %Y') }}</td>
+                <td><span class="status-pill status-{{ order.order_status|lower }}">{{ order.order_status }}</span></td>
+                <td><b>{{ order.grand_total|inr }}</b></td>
+                <td><a class="table-link" href="/order/{{ order.id }}">Details →</a></td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% else %}
+    <div class="empty-state"><span>⌁</span>
+        <h2>No orders yet.</h2>
+        <p>Your next coastal favourite is waiting to be discovered.</p><a class="button button-dark" href="/shop">Explore
+            fish pickles</a></div>
+    {% endif %}
+</section>{% endblock %}

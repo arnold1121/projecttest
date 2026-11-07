@@ -1,0 +1,17 @@
+{% extends "base.html" %}{% block content %}
+<section class="section wrap narrow-page">
+    <div class="eyebrow">MY ACCOUNT</div>
+    <h1 class="page-title">Hello, {{ user.name.split(' ')[0] }}.</h1>
+    <p class="page-subtitle">Keep your account details current.</p>
+    <form method="post" action="/profile" class="card-panel stacked-form"><label>Full name<input name="name"
+                                                                                                 maxlength="120"
+                                                                                                 required
+                                                                                                 value="{{ user.name }}"></label><label>Email
+        (sign-in address)<input value="{{ user.email }}" disabled></label><label>Phone<input name="phone" maxlength="40"
+                                                                                             value="{{ user.phone }}"></label><label>New
+        password <small>(leave blank to keep current)</small><input type="password" name="new_password" minlength="8"
+                                                                    autocomplete="new-password"></label>
+        <button class="button button-dark" type="submit">Save profile</button>
+        <div class="profile-links"><a href="/orders">View my orders →</a><a href="/wishlist">Open wishlist →</a></div>
+    </form>
+</section>{% endblock %}

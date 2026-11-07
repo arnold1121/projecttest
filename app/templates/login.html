@@ -1,0 +1,18 @@
+{% extends "base.html" %}{% block content %}
+<section class="section wrap narrow-page">
+    <div class="eyebrow">WELCOME BACK</div>
+    <h1 class="page-title">Sign in to SeaFishPick.</h1>
+    <p class="page-subtitle">Your saved favourites and orders are here.</p>
+    <form method="post" action="/login" class="card-panel stacked-form"><input type="hidden" name="next"
+                                                                               value="{{ next_url }}"><label>Email
+        address<input type="email" name="email" required autocomplete="email"
+                      placeholder="you@example.com"></label><label>Password<input type="password" name="password"
+                                                                                  required
+                                                                                  autocomplete="current-password"
+                                                                                  placeholder="Your password"></label>
+        <button class="button button-dark button-wide" type="submit">Sign in <span>→</span></button>
+        <p>New to the coast? <a href="/register">Create an account</a></p></form>
+    <div class="demo-credentials"><b>Demo accounts for local
+        testing</b><span>Admin: admin@seafishpick.local / Admin@123</span><span>Customer: customer@example.com / Customer@123</span><small>Change/remove
+        these demo credentials before any public deployment.</small></div>
+</section>{% endblock %}

@@ -1,0 +1,34 @@
+{% extends "admin/base_admin.html" %}{% set active='customers' %}{% block admin_content %}
+<section class="admin-card">
+    <div class="admin-card-head">
+        <div><h2>Customer summaries</h2>
+            <p>Based on demo account and order activity.</p></div>
+    </div>
+    <div class="table-wrap">
+        <table class="admin-table">
+            <thead>
+            <tr>
+                <th>Customer</th>
+                <th>Phone</th>
+                <th>Orders</th>
+                <th>Total spending</th>
+                <th>Joined</th>
+            </tr>
+            </thead>
+            <tbody>{% for row in customer_stats %}
+            <tr>
+                <td><b>{{ row.user.name }}</b><small>{{ row.user.email }}</small></td>
+                <td>{{ row.user.phone or '—' }}</td>
+                <td>{{ row.order_count }}</td>
+                <td>{{ row.total_spending|inr }}</td>
+                <td>{{ row.user.created_at.strftime('%d %b %Y') }}</td>
+            </tr>
+            {% else %}
+            <tr>
+                <td colspan="5">No customer accounts yet.</td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</section>{% endblock %}

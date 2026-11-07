@@ -1,0 +1,50 @@
+<svg width="280" height="340" viewBox="0 0 280 340" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+        <linearGradient id="glass" x1="0" y1="0" x2="1" y2="0">
+            <stop stop-color="#f3d9a2" stop-opacity=".9"/>
+            <stop offset=".25" stop-color="#fff0c7" stop-opacity=".14"/>
+            <stop offset=".72" stop-color="#fff0c7" stop-opacity=".08"/>
+            <stop offset="1" stop-color="#dda96f" stop-opacity=".8"/>
+        </linearGradient>
+        <linearGradient id="oil" x1="0" y1="0" x2=".8" y2="1">
+            <stop stop-color="#d77a25"/>
+            <stop offset=".52" stop-color="#93320e"/>
+            <stop offset="1" stop-color="#61250d"/>
+        </linearGradient>
+        <linearGradient id="lid">
+            <stop stop-color="#7c4e27"/>
+            <stop offset=".25" stop-color="#d6ab69"/>
+            <stop offset=".55" stop-color="#a46f35"/>
+            <stop offset=".8" stop-color="#dcb77b"/>
+            <stop offset="1" stop-color="#795026"/>
+        </linearGradient>
+    </defs>
+    <ellipse cx="140" cy="319" rx="79" ry="13" fill="#082a31" fill-opacity=".2"/>
+    <rect x="70" y="19" width="140" height="32" rx="6" fill="url(#lid)" stroke="#6b431e" stroke-width="2"/>
+    <path d="M82 27h116" stroke="#f6d99e" stroke-width="4" stroke-opacity=".65"/>
+    <rect x="81" y="50" width="118" height="27" fill="url(#lid)"/>
+    <rect x="51" y="69" width="178" height="246" rx="29" fill="url(#glass)" stroke="#f4d79e" stroke-width="4"/>
+    <path d="M59 108Q140 79 221 108V282Q140 308 59 282Z" fill="url(#oil)"/>
+    <path d="M59 108Q140 81 221 108" fill="none" stroke="#f0a04a" stroke-width="6"/>
+    <g fill="#c75d1a" stroke="#6b2b0d" stroke-width="2">
+        <path d="M80 135l31-14 24 22-7 30-35 4-17-22Z"/>
+        <path d="M145 137l30-16 23 20-6 32-31 8-18-18Z"/>
+        <path d="M79 202l35-14 24 22-8 31-36 2-17-21Z"/>
+        <path d="M148 224l30-16 25 21-8 27-30 8-18-18Z"/>
+    </g>
+    <path d="M111 183q24-27 44-5q-16 31-44 5Z" fill="#4f7948"/>
+    <path d="M123 177l20 10" stroke="#b0c87b" stroke-width="3"/>
+    <rect x="57" y="166" width="166" height="91" fill="#e7d6ac" stroke="#9a6b3d" stroke-width="4"/>
+    <path d="M69 176h142M69 247h142" stroke="#c2a372" stroke-width="1"/>
+    <text x="140" y="190" text-anchor="middle" font-family="Arial,sans-serif" font-weight="bold" font-size="9"
+          letter-spacing="2" fill="#17454b">SEA FISH PICK
+    </text>
+    <text x="140" y="215" text-anchor="middle" font-family="Georgia,serif" font-weight="bold" font-size="22"
+          fill="#17454b">COASTAL
+    </text>
+    <text x="140" y="239" text-anchor="middle" font-family="Georgia,serif" font-weight="bold" font-size="21"
+          fill="#17454b">FISH PICKLE
+    </text>
+    <path d="M71 89q-13 41 0 67" fill="none" stroke="#fff7d9" stroke-width="6" stroke-linecap="round"
+          stroke-opacity=".8"/>
+</svg>

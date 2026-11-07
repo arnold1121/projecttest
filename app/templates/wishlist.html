@@ -1,0 +1,13 @@
+{% extends "base.html" %}{% block content %}
+<section class="section wrap">
+    <div class="eyebrow">SAVED FOR LATER</div>
+    <h1 class="page-title">Your wishlist.</h1>
+    <p class="page-subtitle">Keep a favourite close until you're ready.</p>{% if products %}
+    <div class="product-grid">{% for product in products %}{% include 'partials/product_card.html' %}{% endfor %}</div>
+    {% else %}
+    <div class="empty-state"><span>♡</span>
+        <h2>Keep a favourite close.</h2>
+        <p>Tap the heart on any pickle to save it here.</p><a class="button button-dark" href="/shop">Browse
+            flavours</a></div>
+    {% endif %}
+</section>{% endblock %}

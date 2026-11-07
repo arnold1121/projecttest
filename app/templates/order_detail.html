@@ -1,0 +1,21 @@
+{% extends "base.html" %}{% block content %}
+<section class="section wrap narrow-page">
+    <div class="eyebrow">ORDER DETAILS</div>
+    <h1 class="page-title">{{ order.order_number }}</h1>
+    <p class="page-subtitle">Placed {{ order.created_at.strftime('%d %b %Y at %H:%M UTC') }} · <span
+            class="status-pill status-{{ order.order_status|lower }}">{{ order.order_status }}</span></p>
+    <div class="card-panel"><h2>Items</h2>{% for item in items %}
+        <div class="summary-row"><span>{{ item.product_name }} × {{ item.quantity }}</span><b>{{ item.line_total|inr
+            }}</b></div>
+        {% endfor %}
+        <hr>
+        <div class="summary-row"><span>Subtotal</span><b>{{ order.subtotal|inr }}</b></div>
+        <div class="summary-row"><span>Shipping</span><b>{{ order.shipping|inr if order.shipping else 'Free' }}</b>
+        </div>
+        <div class="summary-row grand"><span>Total</span><b>{{ order.grand_total|inr }}</b></div>
+        <h2>Delivery details</h2>
+        <p>{{ order.customer_name }}<br>{{ order.address }}<br>{{ order.city }}, {{ order.state }} {{ order.pincode
+            }}<br>{{ order.phone }}<br>{{ order.customer_email }}</p>
+        <p class="muted">Payment: {{ order.payment_method }} · {{ order.payment_status }}. This is a demo order; no
+            payment was collected. Guest order details are shown once in this browser session.</p></div>
+    <a class="text-link dark-link" href="/orders">← Back to orders</a></section>{% endblock %}

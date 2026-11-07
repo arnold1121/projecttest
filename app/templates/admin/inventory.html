@@ -1,0 +1,32 @@
+{% extends "admin/base_admin.html" %}{% set active='inventory' %}{% block admin_content %}
+<section class="admin-card">
+    <div class="admin-card-head">
+        <div><h2>Inventory</h2>
+            <p>Products with seven or fewer units appear first.</p></div>
+        <a href="/admin/products">Edit catalogue →</a></div>
+    <div class="table-wrap">
+        <table class="admin-table">
+            <thead>
+            <tr>
+                <th>Product</th>
+                <th>Stock</th>
+                <th>Availability</th>
+                <th>Unit price</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>{% for product in products %}
+            <tr>
+                <td><b>{{ product.name }}</b><small>{{ product.weight }}</small></td>
+                <td>{{ product.stock_quantity }}</td>
+                <td><span
+                        class="status-pill {% if product.stock_quantity==0 %}cancelled{% elif product.stock_quantity<=7 %}pending{% endif %}">{% if product.stock_quantity==0 %}Out of stock{% elif product.stock_quantity<=7 %}Low stock{% else %}In stock{% endif %}</span>
+                </td>
+                <td>{{ (product.discount_price if product.discount_price is not none else product.price)|inr }}</td>
+                <td><a href="/admin/products/{{ product.id }}/edit">Update →</a></td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</section>{% endblock %}

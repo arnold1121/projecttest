@@ -1,0 +1,74 @@
+{% extends "admin/base_admin.html" %}{% set active='dashboard' %}{% block page_action %}<a class="admin-primary"
+                                                                                           href="/admin/products/create">＋
+    Add product</a>{% endblock %}{% block admin_content %}
+<div class="stat-grid">
+    <article><span>Total sales</span><b>{{ total_sales|inr }}</b><small>Not including cancelled orders</small></article>
+    <article><span>Orders</span><b>{{ total_orders }}</b><small>Recorded demo orders</small></article>
+    <article><span>Active products</span><b>{{ total_products }}</b><small>In the storefront</small></article>
+    <article><span>Customers</span><b>{{ total_customers }}</b><small>Customer accounts</small></article>
+    <article><span>Pending orders</span><b>{{ pending_orders }}</b><small>Pending or confirmed</small></article>
+    <article><span>Low-stock items</span><b>{{ low_stock|length }}</b><small>Seven units or fewer</small></article>
+</div>
+<div class="admin-two-col">
+    <section class="admin-card">
+        <div class="admin-card-head">
+            <div><h2>Latest orders</h2>
+                <p>Keep each delivery moving.</p></div>
+            <a href="/admin/orders">All orders →</a></div>
+        {% if latest_orders %}
+        <div class="table-wrap">
+            <table class="admin-table">
+                <thead>
+                <tr>
+                    <th>Order</th>
+                    <th>Customer</th>
+                    <th>Status</th>
+                    <th>Total</th>
+                </tr>
+                </thead>
+                <tbody>{% for order in latest_orders %}
+                <tr>
+                    <td><b>{{ order.order_number }}</b><small>{{ order.created_at.strftime('%d %b') }}</small></td>
+                    <td>{{ order.customer_name }}</td>
+                    <td><span class="status-pill status-{{ order.order_status|lower }}">{{ order.order_status }}</span>
+                    </td>
+                    <td>{{ order.grand_total|inr }}</td>
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% else %}
+        <div class="empty-admin">No orders yet. Place one from the storefront to test checkout.</div>
+        {% endif %}
+    </section>
+    <section class="admin-card">
+        <div class="admin-card-head">
+            <div><h2>Inventory watch</h2>
+                <p>Flavours running low.</p></div>
+            <a href="/admin/inventory">View stock →</a></div>
+        {% if low_stock %}
+        <div class="stock-list">{% for product in low_stock %}
+            <div><span class="stock-icon">◈</span><b>{{ product.name }}<small>{{ product.stock_quantity }} left</small></b><span
+                    class="low-stock-label">{% if product.stock_quantity==0 %}Out{% else %}Low{% endif %}</span></div>
+            {% endfor %}
+        </div>
+        {% else %}
+        <div class="empty-admin">Everything looks well stocked.</div>
+        {% endif %}
+    </section>
+</div>
+<section class="admin-card">
+    <div class="admin-card-head">
+        <div><h2>Best-selling products</h2>
+            <p>Units in demo orders.</p></div>
+    </div>
+    <div class="bestseller-bars">{% for row in bestsellers %}
+        <div class="bar-row"><span>{{ row.product.name }}</span>
+            <div>
+                <i style="width:{{ (row.sold / (bestsellers[0].sold if bestsellers and bestsellers[0].sold else 1) * 100)|round|int }}%"></i>
+            </div>
+            <b>{{ row.sold }}</b></div>
+        {% endfor %}
+    </div>
+</section>{% endblock %}

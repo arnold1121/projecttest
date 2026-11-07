@@ -1,0 +1,46 @@
+{% extends "base.html" %}{% block content %}
+<section class="section wrap">
+    <div class="eyebrow">YOUR SELECTION</div>
+    <h1 class="page-title">Your sea basket.</h1>
+    <p class="page-subtitle">A few coastal favourites, ready for your table.</p>{% if cart_lines %}
+    <div class="cart-layout">
+        <div class="cart-list">{% for line in cart_lines %}
+            <article class="cart-line"><img
+                    src="{{ line.product.image_url or url_for('static',path='images/fish-pickle.svg') }}"
+                    alt="{{ line.product.name }}"
+                    onerror="this.onerror=null;this.src='{{ url_for('static',path='images/fish-pickle.svg') }}'">
+                <div class="cart-product"><h3><a href="/product/{{ line.product.id }}">{{ line.product.name }}</a></h3>
+                    <small>{{ line.product.weight }} · {{ line.product.spice_level }}</small>
+                    <form action="/cart/update" method="post" class="quantity-form"><input type="hidden"
+                                                                                           name="product_id"
+                                                                                           value="{{ line.product.id }}"><label>Qty
+                        <input type="number" name="quantity" min="1"
+                               max="{{ line.product.stock_quantity if line.product.stock_quantity>0 else 1 }}"
+                               value="{{ line.quantity }}"></label>
+                        <button class="text-button" type="submit">Update</button>
+                    </form>
+                    <form action="/cart/remove" method="post"><input type="hidden" name="product_id"
+                                                                     value="{{ line.product.id }}">
+                        <button class="remove-button" type="submit">Remove</button>
+                    </form>
+                </div>
+                <strong class="cart-line-price">{{ line.line_total|inr }}</strong></article>
+            {% endfor %}<a class="text-link dark-link" href="/shop">← Continue shopping</a></div>
+        <aside class="summary-card"><h2>Order summary</h2>
+            <div class="summary-row"><span>Subtotal</span><b>{{ totals.subtotal|inr }}</b></div>
+            <div class="summary-row"><span>Shipping</span><b>{{ totals.shipping|inr if totals.shipping else 'Free'
+                }}</b></div>
+            <div class="shipping-hint">{% if totals.subtotal>=799 %}Your basket qualifies for free shipping.{% else
+                %}Add {{ (799-totals.subtotal)|inr }} for free shipping.{% endif %}
+            </div>
+            <div class="summary-row grand"><span>Total</span><b>{{ totals.grand_total|inr }}</b></div>
+            <a class="button button-dark button-wide" href="/checkout">Continue to checkout <span>→</span></a><small
+                    class="secure-note">Demo checkout only. No real payment is collected.</small></aside>
+    </div>
+    {% else %}
+    <div class="empty-state"><span>♧</span>
+        <h2>Your sea basket is waiting.</h2>
+        <p>Something delicious could be on its way.</p><a class="button button-dark" href="/shop">Explore fish
+            pickles</a></div>
+    {% endif %}
+</section>{% endblock %}

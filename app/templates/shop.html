@@ -1,0 +1,51 @@
+{% extends "base.html" %}{% block content %}
+<section class="section wrap shop-page">
+    <div class="eyebrow"><span class="eyebrow-rule"></span> THE SEA FAVOURITES</div>
+    <div class="section-heading">
+        <div><h2>{% if active_category %}{{ active_category.name }}{% else %}Find your coastal<br><em>favourite.</em>{%
+            endif %}</h2>
+            <p>Browse the demo catalogue inspired by southern Tamil Nadu.</p></div>
+    </div>
+    <form class="filter-bar" method="get" action="/shop"><input type="search" name="q"
+                                                                value="{{ filters.q|default('') }}"
+                                                                placeholder="Search name or ingredients"><select
+            name="category_id">
+        <option value="">All categories</option>
+        {% for category in categories %}
+        <option value="{{ category.id }}" {% if filters.category_id|string==category.id|string %}selected{% endif %}>{{
+            category.name }}
+        </option>
+        {% endfor %}</select><input type="number" name="min_price" min="0" step="1" placeholder="Min ₹"
+                                    value="{{ filters.min_price if filters.min_price is not none else '' }}"><input
+            type="number" name="max_price" min="0" step="1" placeholder="Max ₹"
+            value="{{ filters.max_price if filters.max_price is not none else '' }}"><select name="rating">
+        <option value="">Any rating</option>
+        <option value="4" {% if filters.rating==4 %}selected{% endif %}>4★ and up</option>
+        <option value="4.5" {% if filters.rating==4.5 %}selected{% endif %}>4.5★ and up</option>
+    </select><select name="spice_level">
+        <option value="">Any spice level</option>
+        {% for s in ['Mild','Medium','Hot','Extra hot','Mixed'] %}
+        <option value="{{ s }}" {% if filters.spice_level==s %}selected{% endif %}>{{ s }}</option>
+        {% endfor %}</select><select name="availability">
+        <option value="">Any stock status</option>
+        <option value="in-stock" {% if filters.availability=='in-stock' %}selected{% endif %}>In stock</option>
+        <option value="out-of-stock" {% if filters.availability=='out-of-stock' %}selected{% endif %}>Out of stock
+        </option>
+    </select><select name="sort">
+        <option value="featured" {% if filters.sort=='featured' %}selected{% endif %}>Featured</option>
+        <option value="price-asc" {% if filters.sort=='price-asc' %}selected{% endif %}>Price: low to high</option>
+        <option value="price-desc" {% if filters.sort=='price-desc' %}selected{% endif %}>Price: high to low</option>
+        <option value="newest" {% if filters.sort=='newest' %}selected{% endif %}>Newest</option>
+        <option value="popular" {% if filters.sort=='popular' %}selected{% endif %}>Most loved</option>
+    </select>
+        <button class="button button-dark" type="submit">Apply filters</button>
+        <a class="clear-link" href="/shop">Clear</a></form>
+    <p class="results-line">{{ products|length }} flavour{{ '' if products|length==1 else 's' }} to discover <span>Sample prices in INR</span>
+    </p>{% if products %}
+    <div class="product-grid">{% for product in products %}{% include 'partials/product_card.html' %}{% endfor %}</div>
+    {% else %}
+    <div class="empty-state"><span>⌕</span>
+        <h3>No flavours found</h3>
+        <p>Try adjusting your search or filters.</p><a class="button button-dark" href="/shop">Clear filters</a></div>
+    {% endif %}
+</section>{% endblock %}
